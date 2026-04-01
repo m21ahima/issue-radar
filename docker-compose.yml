@@ -8,3 +8,12 @@ services:
     environment:
       - GITHUB_TOKEN=${GITHUB_TOKEN}
     restart: unless-stopped
+
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+      - ./data:/usr/share/nginx/html/data
+    restart: unless-stopped
