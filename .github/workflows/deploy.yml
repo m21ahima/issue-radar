@@ -32,12 +32,12 @@ jobs:
       
       - name: Test fetcher runs
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_ISSUE_RADAR }}
+          GITHUB_TOKEN: ${{ secrets.ISSUE_RADAR_TOKEN }}
         run: |
           cd fetcher
           timeout 30 python main.py || true
           echo "Fetcher ran successfully!"
-          
+
       - name: Build Docker image
         run: |
           docker build -t issue-radar-fetcher ./fetcher
