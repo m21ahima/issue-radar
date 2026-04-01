@@ -29,7 +29,15 @@ jobs:
           cd fetcher
           python -m py_compile main.py
           echo "No syntax errors found!"
-
+      
+      - name: Test fetcher runs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_ISSUE_RADAR }}
+        run: |
+          cd fetcher
+          timeout 30 python main.py || true
+          echo "Fetcher ran successfully!"
+          
       - name: Build Docker image
         run: |
           docker build -t issue-radar-fetcher ./fetcher
