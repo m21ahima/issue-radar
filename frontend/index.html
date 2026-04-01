@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -15,40 +15,61 @@
     }
 
     header {
-      padding: 24px 40px;
+      padding: 20px 40px;
       border-bottom: 1px solid #21262d;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
       gap: 12px;
     }
 
-    header h1 {
-      font-size: 22px;
-      font-weight: 600;
-      color: #58a6ff;
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    header span {
+    header h1 { font-size: 22px; font-weight: 600; color: #58a6ff; }
+    header .subtitle { font-size: 13px; color: #8b949e; }
+
+    .notif-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid #30363d;
+      background: #161b22;
+      color: #e6edf3;
+      cursor: pointer;
       font-size: 13px;
-      color: #8b949e;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
     }
+
+    .notif-btn:hover { border-color: #58a6ff; color: #58a6ff; }
+    .notif-btn.enabled { border-color: #3fb950; color: #3fb950; background: #0d2010; }
+    .notif-btn.denied { border-color: #f85149; color: #f85149; opacity: 0.6; cursor: not-allowed; }
 
     .filters {
-      padding: 20px 40px;
+      padding: 16px 40px;
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       border-bottom: 1px solid #21262d;
+      align-items: center;
     }
 
+    .filters-label { font-size: 12px; color: #8b949e; margin-right: 4px; }
+
     .filter-btn {
-      padding: 6px 14px;
+      padding: 5px 14px;
       border-radius: 20px;
       border: 1px solid #30363d;
       background: #161b22;
       color: #8b949e;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 12px;
       transition: all 0.2s;
     }
 
@@ -58,35 +79,47 @@
       background: #1f2d3d;
     }
 
-    .stats {
-      padding: 16px 40px;
+    .toolbar {
+      padding: 14px 40px;
       display: flex;
-      gap: 24px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    .stat {
-      font-size: 13px;
-      color: #8b949e;
-    }
+    .stats { display: flex; gap: 20px; }
 
-    .stat span {
+    .stat { font-size: 13px; color: #8b949e; }
+    .stat span { color: #e6edf3; font-weight: 600; }
+
+    .search-box {
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1px solid #30363d;
+      background: #161b22;
       color: #e6edf3;
-      font-weight: 600;
+      font-size: 13px;
+      width: 240px;
+      outline: none;
     }
+
+    .search-box:focus { border-color: #58a6ff; }
+    .search-box::placeholder { color: #8b949e; }
 
     .issues-grid {
       padding: 0 40px 40px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 14px;
     }
 
     .issue-card {
       background: #161b22;
       border: 1px solid #21262d;
       border-radius: 10px;
-      padding: 18px;
-      transition: border-color 0.2s;
+      padding: 16px;
+      transition: border-color 0.2s, transform 0.1s;
       cursor: pointer;
       text-decoration: none;
       display: block;
@@ -95,26 +128,53 @@
 
     .issue-card:hover {
       border-color: #58a6ff;
+      transform: translateY(-1px);
     }
 
-    .issue-card .repo {
-      font-size: 12px;
-      color: #58a6ff;
-      margin-bottom: 8px;
+    .issue-card.new-issue {
+      border-color: #3fb950;
+      animation: glow 2s ease-in-out;
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: none; }
+      50% { box-shadow: 0 0 12px rgba(63, 185, 80, 0.3); }
+    }
+
+    .card-top {
       display: flex;
       align-items: center;
-      gap: 6px;
+      justify-content: space-between;
+      margin-bottom: 8px;
     }
 
-    .issue-card .title {
-      font-size: 15px;
+    .repo { font-size: 12px; color: #58a6ff; }
+
+    .new-badge {
+      font-size: 10px;
+      padding: 2px 8px;
+      background: #0d2010;
+      color: #3fb950;
+      border: 1px solid #3fb950;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .title {
+      font-size: 14px;
       font-weight: 500;
       color: #e6edf3;
       margin-bottom: 12px;
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
-    .issue-card .label-tag {
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .label-tag {
       display: inline-block;
       padding: 3px 10px;
       border-radius: 12px;
@@ -125,22 +185,18 @@
       border: 1px solid #1f4068;
     }
 
-    .empty {
+    .meta { font-size: 11px; color: #8b949e; }
+
+    .empty, .loading {
       grid-column: 1/-1;
       text-align: center;
       padding: 80px;
       color: #8b949e;
-    }
-
-    .loading {
-      text-align: center;
-      padding: 80px;
-      color: #8b949e;
+      font-size: 15px;
     }
 
     .radar-dot {
-      width: 10px;
-      height: 10px;
+      width: 9px; height: 9px;
       background: #3fb950;
       border-radius: 50%;
       display: inline-block;
@@ -151,59 +207,136 @@
       0%, 100% { opacity: 1; }
       50% { opacity: 0.3; }
     }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #161b22;
+      border: 1px solid #3fb950;
+      color: #3fb950;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 999;
+    }
+
+    .toast.show { opacity: 1; }
   </style>
 </head>
 <body>
 
 <header>
-  <span class="radar-dot"></span>
-  <h1>Issue Radar</h1>
-  <span id="last-updated"></span>
+  <div class="header-left">
+    <span class="radar-dot"></span>
+    <div>
+      <h1>Issue Radar</h1>
+      <div class="subtitle" id="last-updated">Loading...</div>
+    </div>
+  </div>
+  <button class="notif-btn" id="notif-btn" onclick="toggleNotifications()">
+    🔔 Enable Notifications
+  </button>
 </header>
 
-<div class="filters" id="filters">
-  <button class="filter-btn active" onclick="filterIssues('all')">All</button>
+<div class="filters">
+  <span class="filters-label">Filter:</span>
+  <div id="filters"></div>
 </div>
 
-<div class="stats">
-  <div class="stat">Total: <span id="total-count">0</span></div>
-  <div class="stat">Repos: <span id="repo-count">0</span></div>
+<div class="toolbar">
+  <div class="stats">
+    <div class="stat">Issues: <span id="total-count">0</span></div>
+    <div class="stat">Repos: <span id="repo-count">0</span></div>
+  </div>
+  <input
+    class="search-box"
+    type="text"
+    id="search"
+    placeholder="Search issues or repos..."
+    oninput="applyFilters()"
+  />
 </div>
 
 <div class="issues-grid" id="issues-grid">
-  <div class="loading">Loading issues...</div>
+  <div class="loading">Fetching issues from GitHub...</div>
 </div>
+
+<div class="toast" id="toast"></div>
 
 <script>
   let allIssues = [];
   let activeFilter = 'all';
+  let latestBatchIds = new Set();
+  let notificationsEnabled = false;
 
   async function loadIssues() {
     try {
-      const res = await fetch('data/new_issues.json');
-      allIssues = await res.json();
+      const [issuesRes, batchRes] = await Promise.all([
+        fetch('data/new_issues.json?t=' + Date.now()),
+        fetch('data/latest_batch.json?t=' + Date.now()).catch(() => null)
+      ]);
+
+      const issues = await issuesRes.json();
+      const prevCount = allIssues.length;
+
+      if (batchRes && batchRes.ok) {
+        const batch = await batchRes.json();
+        latestBatchIds = new Set(batch.map(i => i.id));
+      }
+
+      allIssues = issues;
       renderFilters();
-      renderIssues(allIssues);
-      document.getElementById('last-updated').textContent = 'Last updated: ' + new Date().toLocaleTimeString();
+      applyFilters();
+
+      const newCount = allIssues.length - prevCount;
+      if (prevCount > 0 && newCount > 0) {
+        showToast(`${newCount} new issues found!`);
+        sendNotification(newCount);
+      }
+
+      document.getElementById('last-updated').textContent =
+        'Updated: ' + new Date().toLocaleTimeString();
+
     } catch (e) {
-      document.getElementById('issues-grid').innerHTML = '<div class="empty">No issues found yet. Run the fetcher first!</div>';
+      document.getElementById('issues-grid').innerHTML =
+        '<div class="empty">No issues yet — fetcher is running, check back soon!</div>';
     }
   }
 
   function renderFilters() {
-    const labels = [...new Set(allIssues.map(i => i.label))];
+    const labels = ['all', ...new Set(allIssues.map(i => i.label))];
     const container = document.getElementById('filters');
-    container.innerHTML = '<button class="filter-btn active" onclick="filterIssues(\'all\')">All</button>';
-    labels.forEach(label => {
-      container.innerHTML += `<button class="filter-btn" onclick="filterIssues('${label}')">${label}</button>`;
-    });
+    container.innerHTML = labels.map(label => `
+      <button
+        class="filter-btn ${label === activeFilter ? 'active' : ''}"
+        onclick="setFilter('${label}', this)"
+      >${label === 'all' ? 'All' : label}</button>
+    `).join('');
   }
 
-  function filterIssues(label) {
+  function setFilter(label, btn) {
     activeFilter = label;
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-    const filtered = label === 'all' ? allIssues : allIssues.filter(i => i.label === label);
+    btn.classList.add('active');
+    applyFilters();
+  }
+
+  function applyFilters() {
+    const search = document.getElementById('search').value.toLowerCase();
+    let filtered = activeFilter === 'all'
+      ? allIssues
+      : allIssues.filter(i => i.label === activeFilter);
+
+    if (search) {
+      filtered = filtered.filter(i =>
+        i.title.toLowerCase().includes(search) ||
+        i.repo.toLowerCase().includes(search)
+      );
+    }
+
     renderIssues(filtered);
   }
 
@@ -214,17 +347,75 @@
     document.getElementById('repo-count').textContent = repos.size;
 
     if (issues.length === 0) {
-      grid.innerHTML = '<div class="empty">No issues for this filter.</div>';
+      grid.innerHTML = '<div class="empty">No issues match your search.</div>';
       return;
     }
 
-    grid.innerHTML = issues.map(issue => `
-      <a class="issue-card" href="${issue.url}" target="_blank">
-        <div class="repo">⬡ ${issue.repo}</div>
-        <div class="title">${issue.title}</div>
-        <span class="label-tag">${issue.label}</span>
-      </a>
-    `).join('');
+    grid.innerHTML = issues.map(issue => {
+      const isNew = latestBatchIds.has(issue.id);
+      const date = issue.created_at
+        ? new Date(issue.created_at).toLocaleDateString()
+        : '';
+      return `
+        <a class="issue-card ${isNew ? 'new-issue' : ''}"
+           href="${issue.url}" target="_blank">
+          <div class="card-top">
+            <div class="repo">${issue.repo}</div>
+            ${isNew ? '<span class="new-badge">NEW</span>' : ''}
+          </div>
+          <div class="title">${issue.title}</div>
+          <div class="card-footer">
+            <span class="label-tag">${issue.label}</span>
+            <span class="meta">${issue.comments} comments · ${date}</span>
+          </div>
+        </a>
+      `;
+    }).join('');
+  }
+
+  async function toggleNotifications() {
+    const btn = document.getElementById('notif-btn');
+
+    if (!('Notification' in window)) {
+      showToast('Notifications not supported in this browser.');
+      return;
+    }
+
+    if (Notification.permission === 'denied') {
+      btn.className = 'notif-btn denied';
+      btn.textContent = '🔕 Notifications Blocked';
+      showToast('Please enable notifications in your browser settings.');
+      return;
+    }
+
+    const permission = await Notification.requestPermission();
+
+    if (permission === 'granted') {
+      notificationsEnabled = true;
+      btn.className = 'notif-btn enabled';
+      btn.innerHTML = '🔔 Notifications On';
+      showToast('Notifications enabled! You will be alerted for new issues.');
+      new Notification('Issue Radar', {
+        body: 'You will now get notified when new issues drop!',
+        icon: 'https://github.githubassets.com/favicons/favicon.svg'
+      });
+    }
+  }
+
+  function sendNotification(count) {
+    if (notificationsEnabled && Notification.permission === 'granted') {
+      new Notification('Issue Radar — New Issues!', {
+        body: `${count} new contribution issues just dropped. Check them out!`,
+        icon: 'https://github.githubassets.com/favicons/favicon.svg'
+      });
+    }
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
   }
 
   loadIssues();
